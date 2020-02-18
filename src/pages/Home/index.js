@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { formattedPrice } from '../../util/format';
+
 import {
   Container,
   Product,
@@ -34,7 +36,7 @@ export default class Home extends Component {
         <Product>
           <ProductImage source={{ uri: products.image }} />
           <Description>{products.title}</Description>
-          <Price>{products.price}</Price>
+          <Price>{formattedPrice(products.price)}</Price>
           <ButtonContainer onPress={() => {}}>
             <CartAmount>
               <Icon name="add-shopping-cart" color="#fff" size={20} />

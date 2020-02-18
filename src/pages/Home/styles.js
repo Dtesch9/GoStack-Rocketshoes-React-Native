@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { darken } from 'polished';
 
 export const Container = styled.View`
   background: #191920;
@@ -57,7 +58,7 @@ export const CartAmount = styled.View`
   padding: 0 6px;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  background: red;
+  background: ${darken(0.05)('#7159c1')};
 `;
 
 export const Amount = styled.Text`
