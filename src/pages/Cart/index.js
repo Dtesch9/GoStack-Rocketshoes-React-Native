@@ -8,6 +8,7 @@ import colors from '../../styles/colors';
 import {
   Container,
   ProductContainer,
+  List,
   Product,
   ProductImage,
   Description,
@@ -19,6 +20,9 @@ import {
   SinglePrice,
   QuantityButton,
   AmountText,
+  Total,
+  TotalText,
+  TotalPrice,
   ButtonContainer,
   AddButton,
   AddButtonText,
@@ -36,7 +40,64 @@ export default class Cart extends Component {
   load = async () => {
     const response = await api.get('products');
 
-    this.setState({ products: response.data[0] });
+    this.setState({ products: response.data });
+  };
+
+  renderList = product => {
+    return (
+      <>
+        <Product>
+          <ProductImage source={{ uri: product.image }} />
+          <Description>
+            <Title>{product.title}</Title>
+            <Price>{formattedPrice(product.price)}</Price>
+          </Description>
+          <DelButton>
+            <Icon name="delete-forever" color={colors.rocketseat} size={30} />
+          </DelButton>
+        </Product>
+
+        <AmountContainer>
+          <ControlBox>
+            <QuantityButton onPress={() => {}}>
+              <Icon
+                name="remove-circle-outline"
+                color={colors.rocketseat}
+                size={20}
+              />
+            </QuantityButton>
+
+            <AmountText value={String(3)} />
+
+            <QuantityButton onPress={() => {}}>
+              <Icon
+                name="add-circle-outline"
+                color={colors.rocketseat}
+                size={20}
+              />
+            </QuantityButton>
+          </ControlBox>
+          <SinglePrice value={String(formattedPrice(product.price))} />
+        </AmountContainer>
+      </>
+    );
+  };
+
+  renderFooter = () => {
+    return (
+      <>
+        <Total>
+          <TotalText>total</TotalText>
+          <TotalPrice value={formattedPrice(1619, 10)} />
+        </Total>
+
+        <ButtonContainer onPress={() => {}}>
+          <AddButton>
+            <AddButtonText>finalizar pedido</AddButtonText>
+          </AddButton>
+        </ButtonContainer>
+      </>
+    );
   };
 
   render() {
@@ -45,45 +106,12 @@ export default class Cart extends Component {
     return (
       <Container>
         <ProductContainer>
-          <Product>
-            <ProductImage source={{ uri: products.image }} />
-            <Description>
-              <Title>{products.title}</Title>
-              <Price>{formattedPrice(products.price)}</Price>
-            </Description>
-            <DelButton>
-              <Icon name="delete-forever" color={colors.rocketseat} size={30} />
-            </DelButton>
-          </Product>
-
-          <AmountContainer>
-            <ControlBox>
-              <QuantityButton onPress={() => {}}>
-                <Icon
-                  name="remove-circle-outline"
-                  color={colors.rocketseat}
-                  size={20}
-                />
-              </QuantityButton>
-
-              <AmountText value={String(3)} />
-
-              <QuantityButton onPress={() => {}}>
-                <Icon
-                  name="add-circle-outline"
-                  color={colors.rocketseat}
-                  size={20}
-                />
-              </QuantityButton>
-            </ControlBox>
-            <SinglePrice value={String(formattedPrice(products.price))} />
-          </AmountContainer>
-
-          <ButtonContainer onPress={() => {}}>
-            <AddButton>
-              <AddButtonText>finalizar pedido</AddButtonText>
-            </AddButton>
-          </ButtonContainer>
+          <List
+            data={products}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => this.renderList(item)}
+            ListFooterComponent={() => this.renderFooter()}
+          />
         </ProductContainer>
       </Container>
     );

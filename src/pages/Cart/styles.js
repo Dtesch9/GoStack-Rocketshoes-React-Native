@@ -3,8 +3,6 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   background: #191920;
   font-family: sans-serif;
-  flex-direction: column;
-  flex: 1;
   padding: 20px;
 `;
 
@@ -12,10 +10,13 @@ export const Container = styled.View`
 export const ProductContainer = styled.View`
   margin-top: 10px;
   background-color: white;
-  min-height: 358px;
   border-radius: 6px;
   padding: 10px;
   align-items: flex-start;
+`;
+
+export const List = styled.FlatList`
+  width: 100%;
 `;
 
 export const Product = styled.View`
@@ -58,9 +59,9 @@ export const AmountContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  flex: 1;
 
   margin-top: 10px;
+  margin-bottom: 20px;
   background: #eeeeee;
   border-radius: 4px;
   padding: 6px;
@@ -97,6 +98,29 @@ export const SinglePrice = styled.TextInput.attrs({
   padding: 1px 0 0 0;
   font-weight: bold;
   font-size: 18px;
+`;
+
+// Total
+export const Total = styled.View`
+  width: 100%;
+  align-items: center;
+`;
+
+export const TotalText = styled.Text`
+  color: #999999;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+`;
+
+export const TotalPrice = styled.TextInput.attrs({
+  readonly: true,
+})`
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: right;
 `;
 
 // Footer Button
