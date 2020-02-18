@@ -3,7 +3,6 @@ import { darken } from 'polished';
 
 export const Container = styled.View`
   background: #191920;
-  flex-direction: column;
   flex: 1;
   padding: 20px;
 `;
@@ -12,10 +11,11 @@ export const Product = styled.View`
   margin-top: 10px;
   background-color: white;
   width: 220px;
-  height: 358px;
   border-radius: 6px;
   padding: 10px;
   align-items: flex-start;
+  margin-right: 10px;
+  max-height: 400px;
 `;
 
 export const ProductImage = styled.Image`
@@ -32,15 +32,16 @@ export const Description = styled.Text`
 `;
 
 export const Price = styled.Text`
-  margin-top: 10px;
+  margin-top: auto;
   font-weight: bold;
   font-size: 21px;
   line-height: 25px;
   color: #000000;
+  margin-bottom: 10px;
 `;
 
 export const ButtonContainer = styled.TouchableOpacity`
-  margin-top: auto;
+  margin-top: 20px;
   flex-direction: row;
   background: #7159c1;
   width: 100%;

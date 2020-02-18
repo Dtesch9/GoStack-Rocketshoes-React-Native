@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { formattedPrice } from '../../util/format';
 import api from '../../services/api';
+import { formattedPrice } from '../../util/format';
+import colors from '../../styles/colors';
 
 import {
   Container,
@@ -11,6 +13,12 @@ import {
   Description,
   Title,
   Price,
+  DelButton,
+  AmountContainer,
+  ControlBox,
+  SinglePrice,
+  QuantityButton,
+  AmountText,
   ButtonContainer,
   AddButton,
   AddButtonText,
@@ -43,7 +51,33 @@ export default class Cart extends Component {
               <Title>{products.title}</Title>
               <Price>{formattedPrice(products.price)}</Price>
             </Description>
+            <DelButton>
+              <Icon name="delete-forever" color={colors.rocketseat} size={30} />
+            </DelButton>
           </Product>
+
+          <AmountContainer>
+            <ControlBox>
+              <QuantityButton onPress={() => {}}>
+                <Icon
+                  name="remove-circle-outline"
+                  color={colors.rocketseat}
+                  size={20}
+                />
+              </QuantityButton>
+
+              <AmountText value={String(3)} />
+
+              <QuantityButton onPress={() => {}}>
+                <Icon
+                  name="add-circle-outline"
+                  color={colors.rocketseat}
+                  size={20}
+                />
+              </QuantityButton>
+            </ControlBox>
+            <SinglePrice value={String(formattedPrice(products.price))} />
+          </AmountContainer>
 
           <ButtonContainer onPress={() => {}}>
             <AddButton>
