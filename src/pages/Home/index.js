@@ -10,6 +10,7 @@ import {
   ButtonContainer,
   CartAmount,
   Amount,
+  AddButton,
   AddButtonText,
 } from './styles';
 import api from '../../services/api';
@@ -34,13 +35,15 @@ export default class Home extends Component {
           <ProductImage source={{ uri: products.image }} />
           <Description>{products.title}</Description>
           <Price>{products.price}</Price>
-          {/* <ButtonContainer onPress={() => {}}>
+          <ButtonContainer onPress={() => {}}>
             <CartAmount>
               <Icon name="add-shopping-cart" color="#fff" size={20} />
               <Amount>{0}</Amount>
             </CartAmount>
-            <AddButtonText>adicionar</AddButtonText>
-          </ButtonContainer> */}
+            <AddButton>
+              <AddButtonText>adicionar</AddButtonText>
+            </AddButton>
+          </ButtonContainer>
         </Product>
       </Container>
     );
