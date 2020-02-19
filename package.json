@@ -15,6 +15,7 @@
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.0.5",
     "axios": "^0.19.2",
+    "immer": "^5.3.6",
     "intl": "^1.2.5",
     "jsc-android": "^241213.1.0",
     "polished": "^3.4.4",
@@ -29,6 +30,7 @@
     "react-navigation-stack": "^2.1.1",
     "react-redux": "^7.2.0",
     "reactotron-react-native": "^4.0.3",
+    "reactotron-redux": "^3.1.2",
     "redux": "^4.0.5",
     "styled-components": "^5.0.1"
   },

@@ -55,7 +55,7 @@ function Cart({ cart = [] }) {
               />
             </QuantityButton>
 
-            <AmountText value={String(3)} />
+            <AmountText value={String(product.amount)} />
 
             <QuantityButton onPress={() => {}}>
               <Icon

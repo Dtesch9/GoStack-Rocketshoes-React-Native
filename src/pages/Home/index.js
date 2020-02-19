@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
+import * as CartActions from '../../store/modules/cart/actions';
 import { formattedPrice } from '../../util/format';
 
 import {
@@ -31,12 +33,9 @@ class Home extends Component {
   }
 
   handleAddToCart = product => {
-    const { dispatch } = this.props;
+    const { addToCart } = this.props;
 
-    dispatch({
-      type: '@cart/ADD',
-      product,
-    });
+    addToCart(product);
   };
 
   renderList = product => {
@@ -77,4 +76,7 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);

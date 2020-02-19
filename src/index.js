@@ -1,11 +1,11 @@
 import React from 'react';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
-import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
+import './config/ReactotronConfig';
+import { StatusBar } from 'react-native';
 
 import store from './store';
-import './config/ReactotronConfig';
 
 import Routes from './routes';
 
