@@ -88,7 +88,7 @@ export default class Cart extends Component {
       <>
         <Total>
           <TotalText>total</TotalText>
-          <TotalPrice value={formattedPrice(1619, 10)} />
+          <TotalPrice value={String(formattedPrice(1619, 12))} />
         </Total>
 
         <ButtonContainer onPress={() => {}}>
@@ -111,6 +111,7 @@ export default class Cart extends Component {
             keyExtractor={item => item.id}
             renderItem={({ item }) => this.renderList(item)}
             ListFooterComponent={() => this.renderFooter()}
+            // ListEmptyComponent={() => {}}
           />
         </ProductContainer>
       </Container>

@@ -54,6 +54,7 @@ export default class Home extends Component {
     return (
       <Container>
         <FlatList
+          showsHorizontalScrollIndicator={false}
           data={products}
           keyExtractor={item => item.id}
           renderItem={({ item }) => this.renderList(item)}

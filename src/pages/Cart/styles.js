@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   background: #191920;
   font-family: sans-serif;
-  padding: 20px;
+  flex: 1;
+  padding: 18px;
 `;
 
 // Product Box
@@ -15,7 +16,9 @@ export const ProductContainer = styled.View`
   align-items: flex-start;
 `;
 
-export const List = styled.FlatList`
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   width: 100%;
 `;
 
@@ -52,7 +55,9 @@ export const Price = styled.Text`
   color: #000000;
 `;
 
-export const DelButton = styled.TouchableOpacity``;
+export const DelButton = styled.TouchableOpacity`
+  margin-left: 5px;
+`;
 
 // Amount box
 export const AmountContainer = styled.View`
@@ -60,7 +65,7 @@ export const AmountContainer = styled.View`
   align-items: center;
   justify-content: space-between;
 
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 20px;
   background: #eeeeee;
   border-radius: 4px;
