@@ -4,3 +4,10 @@ export function addToCart(product) {
     product,
   };
 }
+
+export function RemoveFromCart(id) {
+  return {
+    type: '@cart/REMOVE',
+    id,
+  };
+}
