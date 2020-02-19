@@ -151,3 +151,17 @@ export const AddButtonText = styled.Text`
   color: #fff;
   text-align: center;
 `;
+
+// EmptyCart
+export const EmptyCart = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EmptyCartText = styled.Text`
+  margin-top: 15px;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 28px;
+`;

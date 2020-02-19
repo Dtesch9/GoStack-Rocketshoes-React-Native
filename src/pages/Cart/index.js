@@ -26,6 +26,8 @@ import {
   ButtonContainer,
   AddButton,
   AddButtonText,
+  EmptyCart,
+  EmptyCartText,
 } from './styles';
 
 export default class Cart extends Component {
@@ -34,7 +36,7 @@ export default class Cart extends Component {
   };
 
   componentDidMount() {
-    this.load();
+    // this.load();
   }
 
   load = async () => {
@@ -100,19 +102,33 @@ export default class Cart extends Component {
     );
   };
 
+  renderEmptyCart = () => {
+    return (
+      <>
+        <EmptyCart>
+          <Icon name="remove-shopping-cart" color="#99999999" size={100} />
+          <EmptyCartText>seu carrinho está vazio</EmptyCartText>
+        </EmptyCart>
+      </>
+    );
+  };
+
   render() {
     const { products } = this.state;
 
     return (
       <Container>
         <ProductContainer>
-          <List
-            data={products}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => this.renderList(item)}
-            ListFooterComponent={() => this.renderFooter()}
-            // ListEmptyComponent={() => {}}
-          />
+          {products.length ? (
+            <List
+              data={products}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => this.renderList(item)}
+              ListFooterComponent={() => this.renderFooter()}
+            />
+          ) : (
+            this.renderEmptyCart()
+          )}
         </ProductContainer>
       </Container>
     );
