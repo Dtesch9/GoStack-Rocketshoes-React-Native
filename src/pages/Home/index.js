@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
@@ -18,7 +19,7 @@ import {
   AddButtonText,
 } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -29,19 +30,30 @@ export default class Home extends Component {
     this.setState({ products: response.data });
   }
 
-  renderList = products => {
+  handleAddToCart = product => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: '@cart/ADD',
+      product,
+    });
+  };
+
+  renderList = product => {
     return (
       <Product>
-        <ProductImage source={{ uri: products.image }} />
-        <Description>{products.title}</Description>
-        <Price>{formattedPrice(products.price)}</Price>
+        <ProductImage source={{ uri: product.image }} />
+        <Description>{product.title}</Description>
+        <Price>{formattedPrice(product.price)}</Price>
         <ButtonContainer onPress={() => {}}>
           <CartAmount>
             <Icon name="add-shopping-cart" color="#fff" size={20} />
             <Amount>{0}</Amount>
           </CartAmount>
           <AddButton>
-            <AddButtonText>adicionar</AddButtonText>
+            <AddButtonText onPress={() => this.handleAddToCart(product)}>
+              adicionar
+            </AddButtonText>
           </AddButton>
         </ButtonContainer>
       </Product>
@@ -56,7 +68,7 @@ export default class Home extends Component {
         <FlatList
           showsHorizontalScrollIndicator={false}
           data={products}
-          keyExtractor={item => item.id}
+          keyExtractor={item => String(item.id)}
           renderItem={({ item }) => this.renderList(item)}
           horizontal
         />
@@ -64,3 +76,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect()(Home);

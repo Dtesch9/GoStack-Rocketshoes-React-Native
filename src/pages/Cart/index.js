@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import api from '../../services/api';
 import { formattedPrice } from '../../util/format';
 import colors from '../../styles/colors';
 
@@ -30,22 +30,8 @@ import {
   EmptyCartText,
 } from './styles';
 
-export default class Cart extends Component {
-  state = {
-    products: [],
-  };
-
-  componentDidMount() {
-    // this.load();
-  }
-
-  load = async () => {
-    const response = await api.get('products');
-
-    this.setState({ products: response.data });
-  };
-
-  renderList = product => {
+function Cart({ cart = [] }) {
+  function renderList(product) {
     return (
       <>
         <Product>
@@ -83,9 +69,9 @@ export default class Cart extends Component {
         </AmountContainer>
       </>
     );
-  };
+  }
 
-  renderFooter = () => {
+  function renderFooter() {
     return (
       <>
         <Total>
@@ -100,9 +86,9 @@ export default class Cart extends Component {
         </ButtonContainer>
       </>
     );
-  };
+  }
 
-  renderEmptyCart = () => {
+  function renderEmptyCart() {
     return (
       <>
         <EmptyCart>
@@ -111,26 +97,28 @@ export default class Cart extends Component {
         </EmptyCart>
       </>
     );
-  };
-
-  render() {
-    const { products } = this.state;
-
-    return (
-      <Container>
-        <ProductContainer>
-          {products.length ? (
-            <List
-              data={products}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => this.renderList(item)}
-              ListFooterComponent={() => this.renderFooter()}
-            />
-          ) : (
-            this.renderEmptyCart()
-          )}
-        </ProductContainer>
-      </Container>
-    );
   }
+
+  return (
+    <Container>
+      <ProductContainer>
+        {cart.length ? (
+          <List
+            data={cart}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => renderList(item)}
+            ListFooterComponent={() => renderFooter()}
+          />
+        ) : (
+          renderEmptyCart()
+        )}
+      </ProductContainer>
+    </Container>
+  );
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);
