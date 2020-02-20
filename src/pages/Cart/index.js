@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formattedPrice } from '../../util/format';
@@ -32,19 +31,30 @@ import {
   EmptyCartText,
 } from './styles';
 
-function Cart({
-  error,
-  cart = [],
-  total,
-  RemoveFromCart,
-  updateAmountRequest,
-}) {
+export default function Cart() {
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      subtotal: formattedPrice(product.price * product.amount),
+    }))
+  );
+
+  const total = useSelector(state =>
+    formattedPrice(
+      state.cart.reduce((totalSum, product) => {
+        return totalSum + product.price * product.amount;
+      }, 0)
+    )
+  );
+
+  const dispatch = useDispatch();
+
   function addCartAmount(id, amount) {
-    updateAmountRequest(id, amount + 1);
+    dispatch(CartActions.updateAmountRequest(id, amount + 1));
   }
 
   function removeCartAmount(id, amount) {
-    updateAmountRequest(id, amount - 1);
+    dispatch(CartActions.updateAmountRequest(id, amount - 1));
   }
 
   function renderList(product) {
@@ -56,7 +66,9 @@ function Cart({
             <Title>{product.title}</Title>
             <Price>{product.formattedPrice}</Price>
           </Description>
-          <DelButton onPress={() => RemoveFromCart(product.id)}>
+          <DelButton
+            onPress={() => dispatch(CartActions.RemoveFromCart(product.id))}
+          >
             <Icon name="delete-forever" color={colors.rocketseat} size={30} />
           </DelButton>
         </Product>
@@ -136,23 +148,3 @@ function Cart({
     </Container>
   );
 }
-
-const mapStateToProps = state => ({
-  cart: state.cart.map(product => ({
-    ...product,
-    subtotal: formattedPrice(product.price * product.amount),
-  })),
-  total: formattedPrice(
-    state.cart.reduce((total, product) => {
-      return total + product.price * product.amount;
-    }, 0)
-  ),
-  error: state.cart.map(product => {
-    return product.error ? product.error : false;
-  }),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);

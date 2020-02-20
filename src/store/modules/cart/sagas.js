@@ -5,11 +5,7 @@ import api from '../../../services/api';
 import NavigationServices from '../../../services/navigationServices';
 import { formattedPrice } from '../../../util/format';
 
-import {
-  addToCartSuccess,
-  updateAmountSuccess,
-  stockAmountFail,
-} from './actions';
+import { addToCartSuccess, updateAmountSuccess } from './actions';
 
 function* addToCart({ id }) {
   const productExists = yield select(state =>
@@ -53,8 +49,6 @@ function* updateAmount({ id, amount }) {
 
   if (amount > stockAmount) {
     Alert.alert('Quantidade fora de estoque');
-
-    yield put(stockAmountFail(id));
 
     return;
   }

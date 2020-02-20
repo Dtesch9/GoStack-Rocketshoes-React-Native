@@ -34,11 +34,3 @@ export function updateAmountSuccess(id, amount) {
     amount,
   };
 }
-
-export function stockAmountFail(id) {
-  return {
-    type: '@cart/STOCK_FAILED',
-    id,
-    error: true,
-  };
-}

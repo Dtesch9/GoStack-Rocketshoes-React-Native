@@ -28,15 +28,6 @@ export default function cart(state = [], action) {
       });
     }
 
-    case '@cart/STOCK_FAILED':
-      return produce(state, draft => {
-        const productIndex = draft.findIndex(p => p.id === action.id);
-
-        if (productIndex >= 0) {
-          draft[productIndex] = { ...draft[productIndex], error: action.error };
-        }
-      });
-
     default:
       return state;
   }
