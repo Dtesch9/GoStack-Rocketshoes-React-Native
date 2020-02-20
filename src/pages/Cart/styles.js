@@ -108,6 +108,7 @@ export const SinglePrice = styled.TextInput.attrs({
 // Total
 export const Total = styled.View`
   width: 100%;
+  min-height: 80px;
   align-items: center;
 `;
 

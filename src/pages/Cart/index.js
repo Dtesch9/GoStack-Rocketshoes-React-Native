@@ -32,9 +32,13 @@ import {
   EmptyCartText,
 } from './styles';
 
-function Cart({ cart = [], RemoveFromCart }) {
-  function handleDelete(id) {
-    RemoveFromCart(id);
+function Cart({ cart = [], total, RemoveFromCart, UpdateAmount }) {
+  function addCartAmount(id, amount) {
+    UpdateAmount(id, amount + 1);
+  }
+
+  function removeCartAmount(id, amount) {
+    UpdateAmount(id, amount - 1);
   }
 
   function renderList(product) {
@@ -46,14 +50,16 @@ function Cart({ cart = [], RemoveFromCart }) {
             <Title>{product.title}</Title>
             <Price>{formattedPrice(product.price)}</Price>
           </Description>
-          <DelButton onPress={() => handleDelete(product.id)}>
+          <DelButton onPress={() => RemoveFromCart(product.id)}>
             <Icon name="delete-forever" color={colors.rocketseat} size={30} />
           </DelButton>
         </Product>
 
         <AmountContainer>
           <ControlBox>
-            <QuantityButton onPress={() => {}}>
+            <QuantityButton
+              onPress={() => removeCartAmount(product.id, product.amount)}
+            >
               <Icon
                 name="remove-circle-outline"
                 color={colors.rocketseat}
@@ -63,7 +69,9 @@ function Cart({ cart = [], RemoveFromCart }) {
 
             <AmountText value={String(product.amount)} />
 
-            <QuantityButton onPress={() => {}}>
+            <QuantityButton
+              onPress={() => addCartAmount(product.id, product.amount)}
+            >
               <Icon
                 name="add-circle-outline"
                 color={colors.rocketseat}
@@ -71,7 +79,7 @@ function Cart({ cart = [], RemoveFromCart }) {
               />
             </QuantityButton>
           </ControlBox>
-          <SinglePrice value={String(formattedPrice(product.price))} />
+          <SinglePrice value={String(product.subtotal)} />
         </AmountContainer>
       </>
     );
@@ -82,7 +90,7 @@ function Cart({ cart = [], RemoveFromCart }) {
       <>
         <Total>
           <TotalText>total</TotalText>
-          <TotalPrice value={String(formattedPrice(1619, 12))} />
+          <TotalPrice value={String(total)} />
         </Total>
 
         <ButtonContainer onPress={() => {}}>
@@ -124,7 +132,15 @@ function Cart({ cart = [], RemoveFromCart }) {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product,
+    subtotal: formattedPrice(product.price * product.amount),
+  })),
+  total: formattedPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount;
+    }, 0)
+  ),
 });
 
 const mapDispatchToProps = dispatch =>
