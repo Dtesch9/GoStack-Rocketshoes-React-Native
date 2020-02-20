@@ -32,13 +32,19 @@ import {
   EmptyCartText,
 } from './styles';
 
-function Cart({ cart = [], total, RemoveFromCart, UpdateAmount }) {
+function Cart({
+  error,
+  cart = [],
+  total,
+  RemoveFromCart,
+  updateAmountRequest,
+}) {
   function addCartAmount(id, amount) {
-    UpdateAmount(id, amount + 1);
+    updateAmountRequest(id, amount + 1);
   }
 
   function removeCartAmount(id, amount) {
-    UpdateAmount(id, amount - 1);
+    updateAmountRequest(id, amount - 1);
   }
 
   function renderList(product) {
@@ -141,6 +147,9 @@ const mapStateToProps = state => ({
       return total + product.price * product.amount;
     }, 0)
   ),
+  error: state.cart.map(product => {
+    return product.error ? product.error : false;
+  }),
 });
 
 const mapDispatchToProps = dispatch =>

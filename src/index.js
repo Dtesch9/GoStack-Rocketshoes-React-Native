@@ -8,12 +8,13 @@ import { StatusBar } from 'react-native';
 import store from './store';
 
 import Routes from './routes';
+import NavigationServices from './services/navigationServices';
 
 export default function App() {
   return (
     <>
       <Provider store={store}>
-        <Routes />
+        <Routes ref={navigator => NavigationServices.setNavigator(navigator)} />
         <StatusBar backgroundColor="#141419" barStyle="light-content" />
       </Provider>
     </>

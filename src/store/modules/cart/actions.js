@@ -19,10 +19,26 @@ export function RemoveFromCart(id) {
   };
 }
 
-export function UpdateAmount(id, amount) {
+export function updateAmountRequest(id, amount) {
   return {
-    type: '@cart/UPDATE',
+    type: '@cart/UPDATE_REQUEST',
     id,
     amount,
+  };
+}
+
+export function updateAmountSuccess(id, amount) {
+  return {
+    type: '@cart/UPDATE_SUCCESS',
+    id,
+    amount,
+  };
+}
+
+export function stockAmountFail(id) {
+  return {
+    type: '@cart/STOCK_FAILED',
+    id,
+    error: true,
   };
 }
