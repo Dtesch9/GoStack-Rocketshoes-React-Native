@@ -1,3 +1,3 @@
 # GoStack-Rocketshoes-React-Native
 
-E-Commerce fictício para venda de tênis, visando o aprendizado e o poder do Redux.
+E-Commerce fictício para venda de tênis, utilizando todo o poder do Redux.
